@@ -1,7 +1,9 @@
 from ascii_art import STAGES
-from snowman import WORDS
 import random
 import sys
+
+# List of secret words
+WORDS = ["python", "git", "github", "snowman", "meltdown"]
 
 
 def get_random_word():
@@ -10,6 +12,7 @@ def get_random_word():
 
 
 def play_game():
+    """Play a game of Snowman-Meltdown."""
     secret_word = get_random_word()
     print("Secret word: " + secret_word)
     mistakes = 0
@@ -49,4 +52,10 @@ def display_game_state(mistakes, secret_word, guessed_letters):
         else:
             guessed_word += "_ "
 
-    print("Word: ", guessed_word )
+    # Check if the user win
+    if "_" not in guessed_word:
+        print("Congratulations, you saved the snowman!")
+    else:
+        print("Word: ", guessed_word, "\n")
+
+
