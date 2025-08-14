@@ -43,7 +43,7 @@ def play_game():
 
 def display_game_state(mistakes, secret_word, guessed_letters):
     """Displays the game state."""
-    if mistakes < 3:
+    if mistakes < 7:
         print(STAGES[mistakes])
     else:
         print("\nGame over! The word was:", secret_word)
