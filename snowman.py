@@ -65,7 +65,7 @@ def display_game_state(mistakes, secret_word, guessed_letters):
             guessed_word += "_ "
 
     print("Word: ", guessed_word )
-    print(STAGES[0])
+    #print(STAGES[0])
 
 
 if __name__ == "__main__":
