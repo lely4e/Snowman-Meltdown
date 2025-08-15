@@ -12,7 +12,7 @@ def get_random_word():
 
 
 def display_welcome_message(secret_word):
-    """Displays Welcome message."""
+    """Displays the welcome message."""
     print("* " * 17)
     print("WELCOME TO SNOWMAN MELTDOWN GAME!")
     print("* " * 17)
@@ -21,16 +21,13 @@ def display_welcome_message(secret_word):
 
 
 def validate_input_guess(user_input):
-    if len(user_input) > 1 or not user_input.isalpha():
-        return False
-    else:
-        return True
+    """Validates if the user guess is a single alphabetical character."""
+    return len(user_input) == 1 and user_input.isalpha()
 
 
 def play_game():
     """Play a game of Snowman-Meltdown."""
     secret_word = get_random_word()
-    print("Secret word: " + secret_word)
     mistakes = 0
     guessed_letters = []
 
@@ -38,7 +35,7 @@ def play_game():
 
     while True:
         # Prompt the user until the game end
-        guess = input("Guess a letter: ").lower()
+        guess = input("Guess a letter: ").strip().lower()
         valid_guess = validate_input_guess(guess)
 
         if valid_guess:
@@ -48,19 +45,21 @@ def play_game():
                 print("You already guessed that letter.")
             else:
                 mistakes += 1
+
             display_game_state(mistakes, secret_word, guessed_letters)
+
         else:
-            print("It must be exactly one letter\n")
+            print("Invalid Input. Please enter exactly one letter\n")
             continue
 
 
 def display_game_state(mistakes, secret_word, guessed_letters):
-    """Displays the game state."""
-    if mistakes < 7:
+    """Displays the current game state."""
+    if mistakes < len(STAGES) - 1:
         print(STAGES[mistakes])
     else:
         print("\nGame over! The word was:", secret_word)
-        print(STAGES[mistakes])
+        print(STAGES[-1])
         new_round()
 
     guessed_word = ""
@@ -76,20 +75,20 @@ def display_game_state(mistakes, secret_word, guessed_letters):
         print("Congratulations, you saved the snowman!\n")
         new_round()
     else:
-        print("Word: ", guessed_word, "\n")
+        print("Word: ", guessed_word.strip(), "\n")
 
 
 def new_round():
     """Check if the user wants to play again."""
     while True:
-        user_answer = input("Do you wanna play one more time? (Y/N)").upper()
+        user_answer = input("Do you wanna play one more time? (Y/N)").strip().upper()
         if user_answer == "Y":
             play_game()
         elif user_answer == "N":
             print("Goodbye!")
             sys.exit()
         else:
-            print("Sorry, I didn't understand that.")
+            print("Sorry, I didn't understand that. Please enter 'Y' or 'N'.\n")
             continue
 
 
