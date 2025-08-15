@@ -11,7 +11,7 @@ def get_random_word():
     return WORDS[random.randint(0, len(WORDS) - 1)]
 
 
-def display_welcome_message(secret_word):
+def display_welcome_message():
     """Displays the welcome message."""
     print("* " * 17)
     print("WELCOME TO SNOWMAN MELTDOWN GAME!")
@@ -29,7 +29,7 @@ def play_game():
     mistakes = 0
     guessed_letters = []
 
-    display_welcome_message(secret_word)
+    display_welcome_message()
 
     while True:
         display_game_state(mistakes, secret_word, guessed_letters)
