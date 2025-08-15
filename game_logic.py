@@ -1,4 +1,4 @@
-from ascii_art import STAGES
+from ascii_art import STAGES, WON
 import random
 import sys
 
@@ -36,6 +36,7 @@ def play_game():
 
         # Check if the user won
         if set(secret_word).issubset(guessed_letters):
+            print(WON[0])
             print("Congratulations, you saved the snowman!\n")
             new_round()
 
