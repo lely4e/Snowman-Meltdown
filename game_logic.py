@@ -11,6 +11,22 @@ def get_random_word():
     return WORDS[random.randint(0, len(WORDS) - 1)]
 
 
+def display_welcome_message(secret_word):
+    """Displays Welcome message."""
+    print("* " * 17)
+    print("WELCOME TO SNOWMAN MELTDOWN GAME!")
+    print("* " * 17)
+    print(STAGES[0])
+    print("Word: ", len(secret_word) * "_ ", "\n")
+
+
+def validate_input_guess(user_input):
+    if len(user_input) > 1 or not user_input.isalpha():
+        return False
+    else:
+        return True
+
+
 def play_game():
     """Play a game of Snowman-Meltdown."""
     secret_word = get_random_word()
@@ -18,27 +34,24 @@ def play_game():
     mistakes = 0
     guessed_letters = []
 
-    # Displaying Welcome message
-    print("* " * 17)
-    print("WELCOME TO SNOWMAN MELTDOWN GAME!")
-    print("* " * 17)
-    print(STAGES[0])
-    print("Word: ", len(secret_word) * "_ ", "\n")
+    display_welcome_message(secret_word)
 
     while True:
         # Prompt the user until the game end
         guess = input("Guess a letter: ").lower()
-        if len(guess) > 1 or not guess.isalpha():
+        valid_guess = validate_input_guess(guess)
+
+        if valid_guess:
+            if guess in secret_word and guess not in guessed_letters:
+                guessed_letters.append(guess)
+            elif guess in guessed_letters:
+                print("You already guessed that letter.")
+            else:
+                mistakes += 1
+            display_game_state(mistakes, secret_word, guessed_letters)
+        else:
             print("It must be exactly one letter\n")
             continue
-
-        if guess in secret_word and guess not in guessed_letters:
-            guessed_letters.append(guess)
-        elif guess in guessed_letters: #________________________
-            print("You already guessed that letter.")
-        else:
-            mistakes += 1
-        display_game_state(mistakes, secret_word, guessed_letters)
 
 
 def display_game_state(mistakes, secret_word, guessed_letters):
